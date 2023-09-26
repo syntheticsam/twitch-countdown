@@ -1,4 +1,4 @@
-# Twitch Word Ban
+# Twitch Word Ban - Bugged ATM
 If a banned word is detected on a twitch channel chat some time will be added.
 
 
