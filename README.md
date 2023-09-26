@@ -2,10 +2,6 @@
 
 If a word is detected on a twitch channel chat some time to a timer will be added. It defults to the word custom. 
 
-
-Also I spelt the link wrong lol
-
-
 # How to run!
 Minimal Edition (min.py):
 1. Download python and min.py and run
