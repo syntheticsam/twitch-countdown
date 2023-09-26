@@ -18,7 +18,7 @@ token = 'arealpassword!'
 # JustinfanXXXX (anom username)
 user = 'justinfan2222'
 # The channel to join
-channel = '#amsaynz'
+channel = '#birnooce'
 
 # Starts at 2 hours
 total_hours = 2
