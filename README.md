@@ -14,6 +14,8 @@ For Main Edition (main.py & templates folder):
 
 
 3b. If you wish to change the start times etc. open the file in a text editor RightClk > Open With > Notepad
+
+
 4. To add the countdown to obs add a new browser source with the url: `127.0.0.1:8080`
 
 # When the countdown ends a tone will play for 10 seconds
