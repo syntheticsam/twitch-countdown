@@ -2,6 +2,7 @@
 # Fast customisation options
 total_hours = 2
 minute_penalty = 20
+bannedword = 'custom'
 
 
 # Main Code
@@ -69,7 +70,7 @@ def main_program():
         # Connect to twitch and look for word custom.
         message = server.recv(2048)
         messagestr = str(message)
-        bannedword = 'custom'
+
 
         # Uses rx, theoreticly could add "or" statements to extend the word search :)
         if search(bannedword, messagestr):
