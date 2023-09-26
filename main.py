@@ -1,5 +1,10 @@
 # Created By ttv/AmsayNZ
+# Fast customisation options
+total_hours = 0.01
+minute_penalty = 20
 
+
+# Main Code
 import socket
 import time
 import threading
@@ -7,32 +12,16 @@ from re import search
 import winsound
 from flask import Flask, render_template
 
+
 app = Flask(__name__)
-
-# Global variable to store the value to display
-value_to_display = "Initial Value"
-
-connection_data = ('irc.chat.twitch.tv', 6667)
-# This can be anything
-token = 'arealpassword!'
-# JustinfanXXXX (anom username)
-user = 'justinfan2222'
-# The channel to join
-channel = '#birnooce'
-
-# Starts at 2 hours
-total_hours = 2
 total_minutes = total_hours * 60
 total_seconds = total_minutes * 60
 
 
 def countdown_timer():
-    global total_seconds, value_to_display
+    global total_seconds
 
     while total_seconds > 0:
-        minutes, seconds = divmod(total_seconds, 60)
-        print(f"Time left: {minutes} minutes {seconds} seconds")
-        value_to_display = total_seconds
         time.sleep(1)
         total_seconds -= 1
 
@@ -41,25 +30,34 @@ def countdown_timer():
 
 
 def obs():
-    global value_to_display
 
     @app.route('/')
     def home():
-        return render_template('index.html', value=value_to_display)
+        return render_template('index.html')
 
     @app.route('/value')
     def get_value():
-        minutes, seconds = divmod(total_seconds, 60)
-        hours, minutes = divmod(minutes, 60)
-        output = f'{hours}:{minutes}:{seconds}'
+        if total_seconds > 0:
+            minutes, seconds = divmod(total_seconds, 60)
+            hours, minutes = divmod(minutes, 60)
+            output = f'{hours}:{minutes}:{seconds}'
+        else:
+            output = 'Time for a custom!'
         return output
 
     if __name__ == '__main__':
-        app.run(debug=True, port=8080)
+        app.run(debug=False, port=8080)
 
 
 def main_program():
-    global total_seconds
+    global total_seconds, minute_penalty
+    connection_data = ('irc.chat.twitch.tv', 6667)
+    # This can be anything
+    token = 'arealpassword!'
+    # JustinfanXXXX (anom username)
+    user = 'justinfan2222'
+    # The channel to join
+    channel = '#birnooce'
 
     server = socket.socket()
     server.connect(connection_data)
@@ -75,23 +73,18 @@ def main_program():
 
         # Uses rx, theoreticly could add "or" statements to extend the word search :)
         if search(bannedword, messagestr):
-            print("Custom was said!")
-            minutes_to_add = 20
-            total_seconds += minutes_to_add * 60
+            print("Word was said!")
+            total_seconds += minute_penalty * 60
 
 
 # Create a thread for the countdown timer and obs
 countdown_thread = threading.Thread(target=countdown_timer)
-main_thread = threading.Thread(target=main_program)
+mainp_thread = threading.Thread(target=main_program)
 
 # Start the countdown timer and obs thread
+mainp_thread.start()
 countdown_thread.start()
-main_thread.start()
-
 obs()
 
-
-# Wait for the countdown timer thread to finish (optional)
-countdown_thread.join()
 
 print("Main program completed.")
