@@ -1,6 +1,6 @@
 # Twitch Word Ban
 
-If a banned word is detected on a twitch channel chat some time to a timer will be added. 
+If a banned word is detected on a twitch channel chat some time to a timer will be added. It defults to the word custom. 
 
 
 Also I spelt the link wrong lol
@@ -20,3 +20,4 @@ For obs:
 # TODO
 1. Make it more user friendly (better customisation etc.)
 2. Change the font
+3. Make the word editable
