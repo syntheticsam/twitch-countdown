@@ -1,6 +1,6 @@
 # Created By ttv/AmsayNZ
 # Fast customisation options
-total_hours = 0.01
+total_hours = 2
 minute_penalty = 20
 
 
