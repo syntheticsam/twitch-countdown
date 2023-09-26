@@ -22,4 +22,4 @@ For obs:
 # TODO
 1. Make it more user friendly (better customisation etc.)
 2. Change the font
-3. Make the word editable
+3. Add easy support for multiple words
