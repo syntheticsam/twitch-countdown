@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <script>
+        function updateValue() {
+            // Get the value from the server and update the element with ID "value-display"
+            fetch('/value')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('value-display').innerText = data;
+                });
+        }
+
+        // Update the value every second
+        setInterval(updateValue, 1000);
+    </script>
+</head>
+<body>
+    <h1 id="value-display">Initial Value</h1>
+</body>
+</html>
