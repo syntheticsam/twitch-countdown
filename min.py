@@ -15,14 +15,29 @@ user = 'justinfan2222'
 channel = '#birnooce'
 
 # Starts at 200 mins
-total_seconds = 12000
+choosing = True
+while choosing:
+    try:
+        total_seconds = int(input("How many hours should this last: ")) * 60 * 60
+        choosing = False
+    except Exception:
+        print("Sorry try again.")
+
+choosing = True
+while choosing:
+    try:
+        penalty = int(input("What should the penalty be: "))
+        choosing = False
+    except Exception:
+        print("Sorry try again.")
 
 
 def countdown_timer():
     global total_seconds
     while total_seconds > 0:
         minutes, seconds = divmod(total_seconds, 60)
-        print(f"Time left: {minutes} minutes {seconds} seconds")
+        hours, minutes = divmod(minutes, 60)
+        print(f"Time left: {hours} hours {minutes} minutes {seconds} seconds")
         time.sleep(1)
         total_seconds -= 1
 
@@ -31,7 +46,7 @@ def countdown_timer():
 
 
 def main_program():
-    global total_seconds
+    global total_seconds, penalty
 
     server = socket.socket()
     server.connect(connection_data)
@@ -48,8 +63,7 @@ def main_program():
         # Uses rx theoreticly could add or statements to extend functionality
         if search(bannedword, messagestr):
             print("Found!")
-            minutes_to_add = 20
-            total_seconds += minutes_to_add * 60
+            total_seconds += penalty * 60
         else:
             print("Not found!")
 
@@ -60,7 +74,7 @@ countdown_thread = threading.Thread(target=countdown_timer)
 # Start the countdown timer thread
 countdown_thread.start()
 
-# Start your main program
+# Start main program
 main_program()
 
 # Wait for the countdown timer thread to finish (optional)
