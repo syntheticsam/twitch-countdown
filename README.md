@@ -1,6 +1,6 @@
-# Twitch Word Ban
+# Twitch Countdown
 
-If a banned word is detected on a twitch channel chat some time to a timer will be added. It defults to the word custom. 
+If a word is detected on a twitch channel chat some time to a timer will be added. It defults to the word custom. 
 
 
 Also I spelt the link wrong lol
