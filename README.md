@@ -1,6 +1,6 @@
 # Twitch Word Ban
 
-If a banned word is detected on a twitch channel chat some time will be added.
+If a banned word is detected on a twitch channel chat some time to a timer will be added. 
 
 
 Also I spelt the link wrong lol
