@@ -17,3 +17,6 @@ For obs:
 4. To add the countdown to obs add a new browser source with the url 127.0.0.1:8080
 
 # When the countdown ends a tone will play for 10 seconds
+# TODO
+1. Make it more user friendly (better customisation etc.)
+2. Change the font
