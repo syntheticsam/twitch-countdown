@@ -1,13 +1,13 @@
 # Created By ttv/AmsayNZ
 # Fast customisation options
-total_hours = int(input("How many hours should we start with: "))
-minute_penalty = int(input("What should the penalty be for the banned words: "))
+total_hours = int(input("How many hours should we start at: "))
+minute_penalty = int(input("What should the penalty be for the banned words (minutes and whole numbers please): "))
 inputing = True
 bannedwords = []
 channel_name = input("What channel should I look at: ")
 
 while inputing:
-    input_word = input("What word should be banned (enter to escape out of loop): ")
+    input_word = input("What word should be banned (press enter to escape out of loop): ")
     if input_word == '':
         inputing = False
     else:
@@ -97,7 +97,7 @@ def main_program():
 
         matches = rgx.findall(messagestr.replace(' ', ''))
         was_match = False
-        # Uses rx, theoreticly could add "or" statements to extend the word search :)
+
         for match in matches:
             print("Found match!")
             was_match = True
