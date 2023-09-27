@@ -1,15 +1,25 @@
 # Created By ttv/AmsayNZ
 # Fast customisation options
-total_hours = 2
-minute_penalty = 20
-bannedword = 'custom'
+total_hours = int(input("How many hours should we start with: "))
+minute_penalty = int(input("What should the penalty be for the banned words: "))
+inputing = True
+bannedwords = []
+channel_name = input("What channel should I look at: ")
+
+while inputing:
+    input_word = input("What word should be banned (enter to escape out of loop): ")
+    if input_word == '':
+        inputing = False
+    else:
+        bannedwords.append(input_word)
 
 
 # Main Code
 import socket
+import random
 import time
 import threading
-from re import search
+import re
 import winsound
 from flask import Flask, render_template
 
@@ -17,6 +27,8 @@ from flask import Flask, render_template
 app = Flask(__name__)
 total_minutes = total_hours * 60
 total_seconds = total_minutes * 60
+pattern = r'\b\s*(' + '|'.join(re.escape(word) for word in bannedwords) + r')\s*\b'
+rgx = re.compile(pattern, flags=re.IGNORECASE)
 
 
 def countdown_timer():
@@ -41,7 +53,18 @@ def obs():
         if total_seconds > 0:
             minutes, seconds = divmod(total_seconds, 60)
             hours, minutes = divmod(minutes, 60)
-            output = f'{hours}:{minutes}:{seconds}'
+
+            if seconds <= 9:
+                true_seconds = f'0{seconds}'
+            else:
+                true_seconds = seconds
+
+            if minutes <= 9:
+                true_minutes = f'0{minutes}'
+            else:
+                true_minutes = minutes
+
+            output = f'{hours}:{true_minutes}:{true_seconds}'
         else:
             output = 'Time for a custom!'
         return output
@@ -56,9 +79,10 @@ def main_program():
     # This can be anything
     token = 'arealpassword!'
     # JustinfanXXXX (anom username)
-    user = 'justinfan2222'
+    appended = random.randint(1, 9000)
+    user = f'justinfan{appended}'
     # The channel to join
-    channel = '#birnooce'
+    channel = f'#{channel_name}'
 
     server = socket.socket()
     server.connect(connection_data)
@@ -71,11 +95,18 @@ def main_program():
         message = server.recv(2048)
         messagestr = str(message)
 
-
+        matches = rgx.findall(messagestr.replace(' ', ''))
+        was_match = False
         # Uses rx, theoreticly could add "or" statements to extend the word search :)
-        if search(bannedword, messagestr):
-            print("Word was said!")
+        for match in matches:
+            print("Found match!")
+            was_match = True
+
+        if was_match:
             total_seconds += minute_penalty * 60
+
+        was_match = False
+        matches = []
 
 
 # Create a thread for the countdown timer and obs
