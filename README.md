@@ -9,7 +9,7 @@ Minimal Edition (min.py):
 
 For Main Edition (main.py & templates folder):
 1. Download python (personaly I use 3.11.5): https://www.python.org/downloads/
-2. Open a new terminal and enter the command `pyhton -m pip install flask`
+2. Open a new terminal and enter the command `pip install flask`
 3. After that finishes you should now be able to go and run main.py (by default it will be set up to connect to the birnooce channel).
 **If you wish to change the start times etc. open the file in a text editor RightClk > Open With > Notepad**
 4. To add the countdown to obs add a new browser source with the url: `127.0.0.1:8080`
