@@ -3,8 +3,8 @@
 import socket
 import time
 import threading
-from re import search
 import winsound
+import re
 
 connection_data = ('irc.chat.twitch.tv', 6667)
 # This can be anything
@@ -12,7 +12,11 @@ token = 'arealpassword!'
 # JustinfanXXXX (anom username)
 user = 'justinfan2222'
 # The channel to join
-channel = '#birnooce'
+channel_name = input("What channel should I look at: ")
+channel = f'#{channel_name}'
+
+inputing = True
+bannedwords = []
 
 # Starts at 200 mins
 choosing = True
@@ -30,6 +34,16 @@ while choosing:
         choosing = False
     except Exception:
         print("Sorry try again.")
+
+while inputing:
+    input_word = input("What word should be banned (enter to escape out of loop): ")
+    if input_word == '':
+        inputing = False
+    else:
+        bannedwords.append(input_word)
+
+pattern = r'\b\s*(' + '|'.join(re.escape(word) for word in bannedwords) + r')\s*\b'
+rgx = re.compile(pattern, flags=re.IGNORECASE)
 
 
 def countdown_timer():
@@ -58,14 +72,19 @@ def main_program():
         # Connect to twitch and look for word custom.
         message = server.recv(2048)
         messagestr = str(message)
-        bannedword = 'custom'
 
-        # Uses rx theoreticly could add or statements to extend functionality
-        if search(bannedword, messagestr):
-            print("Found!")
+        matches = rgx.findall(messagestr.replace(' ', ''))
+        was_match = False
+        # Uses rx, theoreticly could add "or" statements to extend the word search :)
+        for match in matches:
+            print("Found match!")
+            was_match = True
+
+        if was_match:
             total_seconds += penalty * 60
-        else:
-            print("Not found!")
+
+        was_match = False
+        matches = []
 
 
 # Create a thread for the countdown timer
